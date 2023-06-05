@@ -4,6 +4,7 @@
 #include <filesystem> 
 #include <vector>
 #include <algorithm>
+#include <ctime>
 
 using namespace std;
 
@@ -192,7 +193,9 @@ int main() {
     if (!filesystem::exists(OUTPUT_DIRECTORY)) {
         filesystem::create_directory(OUTPUT_DIRECTORY);
     }
-    createNewFile(OUTPUT_DIRECTORY + "/data.csv", people);
+    time_t currentTime = time(nullptr);
+    string newFilePath = OUTPUT_DIRECTORY + "/data_" + to_string(currentTime) + ".csv";
+    createNewFile(newFilePath, people);
     
     return 0;
 }
