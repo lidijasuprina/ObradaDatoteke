@@ -4,13 +4,14 @@
 #include <filesystem> 
 #include <vector>
 #include <algorithm>
-#include <ctime>
+#include <regex>
 
 using namespace std;
 
 const int COLUMN_WIDTH = 20;
 const string OUTPUT_DIRECTORY = "output";
 const string ACCEPTED_EXTENSION = ".csv";
+string formatDate(string dob);
 
 class Person {
     public:
@@ -47,16 +48,24 @@ class Person {
         }
 
         string formatDate(string dob) {
-            istringstream dateStream(dob);
-            int day, month, year;
-            char discard;
-            dateStream >> day >> discard >> month >> discard >> year;
+            regex dayMonthYear(R"(^(0[1-9]|1[0-9]|2[0-9]|3[01])[-./](0[1-9]|1[0-2])[-./](0\d{3}|[1-9]\d{3})$)");
+            regex yearMonthDay(R"(^(0\d{3}|[1-9]\d{3})[-./](0[1-9]|1[0-2])[-./](0[1-9]|1\d|2[0-9]|3[01])$)");
+            regex monthDayYear(R"(^(0[1-9]|1[0-2])[/.-](0[1-9]|1[0-9]|2[0-9]|3[01])[/.-](0\d{3}|[1-9]\d{3})$)");
 
-            ostringstream formattedDate;
-            formattedDate << setfill('0') << setw(2) << day << '-'
-                        << setfill('0') << setw(2) << month << '-'
-                        << setfill('0') << setw(4) << year;
-            return formattedDate.str();
+            if (regex_match(dob, dayMonthYear)) {
+                replace(dob.begin(), dob.end(), '/', '-');
+                replace(dob.begin(), dob.end(), '.', '-');
+            } else if (regex_match(dob, yearMonthDay)) {
+                dob = dob.substr(8, 2) + "-" + dob.substr(5, 2) + "-" + dob.substr(0, 4);
+
+            } else if (regex_match(dob, monthDayYear)) {
+                dob = dob.substr(3, 2) + "-" + dob.substr(0, 2) + "-" + dob.substr(6, 4);
+                
+            } else {
+                cerr << "Invalid date format: " << dob << endl;
+            }
+
+            return dob;
         }
 };
 
