@@ -11,7 +11,6 @@ using namespace std;
 const int COLUMN_WIDTH = 20;
 const string OUTPUT_DIRECTORY = "output";
 const string ACCEPTED_EXTENSION = ".csv";
-string formatDate(string dob);
 
 class Person {
     public:
