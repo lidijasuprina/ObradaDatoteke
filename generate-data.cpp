@@ -31,7 +31,7 @@ string randomName() {
 }
 
 string randomSurname() {
-    string surnames[] = { "Ivic", "Anic", "Peric", "Ivanic", "Markic", "Maric", "Cvjetic", "Slavic" };
+    string surnames[] = { "Ivić", "Anić", "Perić", "Ivanić", "Markić", "Marić", "Cvjetić", "Slavić" };
     int index = randomNumber(0, sizeof(surnames) / sizeof(surnames[0]) - 1);
     return surnames[index];
 }
@@ -46,7 +46,7 @@ int main() {
 
     ofstream outputFile(filePath);
     if (!outputFile) {
-        cerr << "Error opening output file." << endl;
+        cerr << "Pogreška pri otvaranju izlazne datoteke." << endl;
         return 1;
     }
 

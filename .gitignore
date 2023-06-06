@@ -1,5 +1,6 @@
 /a.exe
 /file-processing.exe
+/generate-data.exe
 .vscode
 output
 input

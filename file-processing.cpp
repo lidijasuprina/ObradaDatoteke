@@ -61,7 +61,7 @@ class Person {
                 dob = dob.substr(3, 2) + "-" + dob.substr(0, 2) + "-" + dob.substr(6, 4);
                 
             } else {
-                cerr << "Invalid date format: " << dob << endl;
+                cerr << "Nevažeći format datuma: " << dob << endl;
             }
 
             return dob;
@@ -92,7 +92,7 @@ bool validateFile(string filePath) {
 
     string ext = filesystem::path(filePath).extension().string();
     if (ext != ACCEPTED_EXTENSION) {
-        cerr << "Datoteka '" << filePath << "' ima pogresan nastavak (prihvaca se samo CSV datoteka)." << endl;
+        cerr << "Datoteka '" << filePath << "' ima pogrešan nastavak (prihvaća se samo CSV datoteka)." << endl;
         return false;
     }
 
@@ -118,12 +118,12 @@ vector<Person> readFromFile(string filePath) {
         string firstName, lastName, dateOfBirth;
 
         if (!getline(ss, firstName, ';') || !getline(ss, lastName, ';') || !getline(ss, dateOfBirth, ';')) {
-            cerr << "Error: Missing column(s) in line: " << line << endl;
+            cerr << "Pogreška: nedostaju stupci u redu: " << line << endl;
             continue;
         }
 
         if (firstName.empty() || lastName.empty() || dateOfBirth.empty()) {
-            cerr << "Error: Empty column(s) in line: " << line << endl;
+            cerr << "Pogreška: prazni stupci u redu: " << line << endl;
             continue;
         }
 
@@ -141,7 +141,7 @@ vector<Person> readFromFile(string filePath) {
 void createNewFile(string filePath, vector<Person> people) {
     ofstream outputFile(filePath);
     if (!outputFile) {
-        cerr << "Error creating new CSV file." << endl;
+        cerr << "Pogreška pri izradi nove CSV datoteke." << endl;
         return;
     }
 
@@ -160,10 +160,10 @@ void createNewFile(string filePath, vector<Person> people) {
 void printHeader() {
     cout << left << setw(COLUMN_WIDTH) << "Ime";
     cout << left << setw(COLUMN_WIDTH) << "Prezime";
-    cout << left << setw(COLUMN_WIDTH) << "Datum rodenja";
+    cout << left << setw(COLUMN_WIDTH) << "Datum rođenja";
     cout << left << setw(COLUMN_WIDTH) << "Ime (hex)";
     cout << left << setw(COLUMN_WIDTH) << "Prezime (hex)";
-    cout << left << setw(COLUMN_WIDTH) << "Datum rodenja (hex)";
+    cout << left << setw(COLUMN_WIDTH) << "Datum rođenja (hex)";
     cout << endl;
 }
 
@@ -187,7 +187,7 @@ int main() {
     };
 
     if (!fileOpened) {
-        cerr << "Nije uspjelo otvaranje datoteke nakon pokusaja " << maxAttempts << ". Izlaz..." << endl;
+        cerr << "Nije uspjelo otvaranje datoteke nakon pokušaja " << maxAttempts << ". Izlaz..." << endl;
         return 1;
     }
 
